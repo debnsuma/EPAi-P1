@@ -51,6 +51,12 @@ def clear_memory(collection: List[Something]):
 
 
 def critical_function():
+    '''
+    This is the function which creates cyclic reference between the instances 
+    It also runs for 1024*128 times in loop and after creating the cyclic references,
+    it removes all the elements from the collection 
+    and later it runs GC collect to clear the memory to avoid memory leak 
+    '''
     collection = list()
     for i in range(1, 1024 * 128):
         add_something(collection, i) 
@@ -66,6 +72,11 @@ def critical_function():
 
 # DO NOT CHANGE THIS PROGRAM
 def compare_strings_old(n):
+    '''
+    A simple function which compares a long string with another string(both are same) 
+    It compairs using `equality` logic, and hence its very slow 
+    It also check the membership of a character in the string as well
+    '''
     a = 'a long string that is not intered' * 200
     b = 'a long string that is not intered' * 200
     for i in range(n):
@@ -78,6 +89,11 @@ def compare_strings_old(n):
 
 # YOU NEED TO CHANGE THIS PROGRAM
 def compare_strings_new(n):
+    '''
+    This function is a better and more optimized version of the function `compare_strings_old`
+    Here the comparision is done via `is` operater which uses id() of the object 
+    Also for membership test it uses `set()` in place of `list()` which is more efficient and fast
+    '''
     a = sys.intern('a long string that is not intered' * 200)
     b = sys.intern('a long string that is not intered' * 200)
 
