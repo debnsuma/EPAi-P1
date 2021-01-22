@@ -21,37 +21,37 @@ The pytest contains total 9 tests:
 
 Few of the functions/classes mentioned are: 
 
-##Something
+## Something
 
 This `class` was just an dummy class, which had one parameter `something_new` under `__init__`, which is the constructor method inside the class definition.
 
-##SomethingNew
+## SomethingNew
 
 This is also a `class` which holds two attributes, one as an integer and nother an object under `__init__`, which is the constructor method inside the class definition. 
 
-##add_something()
+## add_something()
 
 This is a `function`, it create an instance of class Something() and it initiates "something_new" attribute of Something() instance to an instance of SomethingNew()
 
 - collection : Its an empty list() object
 
-##clear_memory()
+## clear_memory()
 
 This is a `function`, which simply removes all the elements in the collection, like list, 
 
-##critical_function()
+## critical_function()
 
 This is the function which creates cyclic reference between the instances 
 It also runs for 1024*128 times in loop and after creating the cyclic references, it removes all the elements from the collection  and later it runs GC collect to clear the memory to avoid memory leak. 
 
 
-##compare_strings_old()
+## compare_strings_old()
 
 A simple function which compares a long string with another string(both are same) 
 It compairs using `equality` logic, and hence its very slow 
 It also check the membership of a character in the string as well
 
-##compare_strings_new()
+## compare_strings_new()
 
 This function is a better and more optimized version of the function `compare_strings_old`
 Here the comparision is done via `is` operater which uses id() of the object 
