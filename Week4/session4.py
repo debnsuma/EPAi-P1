@@ -1,122 +1,114 @@
 import time
-from math import tan, pi
+from math import pi, tan
 
+# 1. Generate power of a number function
+def squared_power_list(num, *, start=0, end):
 
-def _print(repetitons, *args, **kwargs):
-    if "sep" not in kwargs:
-        kwargs["sep"] = " "
-    if "end" not in kwargs:
-        kwargs["end"] = "\n"
-
-    for i in range(repetitons):
-        print(*args, sep=kwargs["sep"], end=kwargs["end"])
-
-
-def _squared_power_list(repetitons, num, **kwargs):
-    if "start" not in kwargs:
-        kwargs["start"] = 0
-    if "end" not in kwargs:
-        kwargs["end"] = 0
-
-    for i in range(repetitons):
-        result = [num ** i for i in range(kwargs["start"], kwargs["end"] + 1)]
-        print(result)
-
-
-def _polygon_area(repetitons, side_length, **kwargs):
-    if "sides" not in kwargs:
-        kwargs["sides"] = 3
-
-    if kwargs["sides"] > 6:
-        print("This polygon supports area calculations of upto a hexagon(3 <= 'side' <= 6)")
-    elif kwargs["sides"] < 3:
-        print("Mathematics Guru says, min. no of sides a polygon can have is 3 :)")
+    if start >= 0 and end >= start:
+        result = [num ** i for i in range(start, end + 1)]
     else:
-        for i in range(repetitons):
-            area = kwargs["sides"] * (side_length ** 2) / (4 * tan(pi / kwargs["sides"]))
-            print(round(area, 3))
+        print("The parameter 'start' should be 0 or more and can not be negative and 'end' should be equal to or more than 'start'")
+        result = []
+    return result
 
-
-def _temp_converter(repetitons, input_temp, **kwargs):
-    if "temp_given_in" not in kwargs:
-        kwargs["temp_given_in"] = "f"
-
-    if kwargs["temp_given_in"] == "c":
-        for i in range(repetitons):
-            out_temp = (input_temp * 9 / 5) + 32
-            print(round(out_temp, 3))
-
-    elif kwargs["temp_given_in"] == "f":
-        for i in range(repetitons):
-            out_temp = (input_temp - 32) * 5 / 9
-            print(round(out_temp, 3))
-
+# 2. Polygon Area Calculator Function
+def polygon_area(side_length, *, sides=3):
+    if side_length > 0 and sides >= 3 and sides <= 6:
+        area = sides * (side_length ** 2) / (4 * tan(pi / sides))
     else:
-        print("The parameter, 'temp_given_in' can be either 'f' or 'c'")
+        print("Side Length can not be negative and Sides can be only 3, 4, 5, 6")
+        area = None
+    return area
 
-
-def _speed_converter(repetitons, distance, **kwargs):
-    if "dist" not in kwargs:
-        kwargs["dist"] = "km"
-    if "time" not in kwargs:
-        kwargs["time"] = "min"
-
-    for i in range(repetitons):
-        if kwargs["dist"] == "m":
-            distance_in_km = distance * 0.001
-        elif kwargs["dist"] == "ft":
-            distance_in_km = distance * 0.0003048
-        elif kwargs["dist"] == "yrd":
-            distance_in_km = distance * 0.0009144
+# 3. Temperature Conversion Function
+def temp_converter(temperature, *, temp_given_in='c'):
+    if temp_given_in == 'c' and temperature >= -273.15:
+        temp_in_f = temperature * 9 / 5 + 32
+        temp_in_k = temperature + 273.15
+        print(
+            f'For given temperature in {temperature:.3f} C is equivelent to  {temp_in_f:.3f} F or {temp_in_k:.3f} K ')
+        temp1 = temp_in_f
+        temp1_b = "F"
+        temp2 = temp_in_k
+        temp2_b = "K"
+    elif temp_given_in == 'f' and temperature > -459.67:
+        temp_in_c = (temperature - 32) / 1.8
+        temp_in_k = (temperature - 32) / 1.8 + 273.15
+        print(
+            f'For given temperature in {temperature:.3f} F is equivelent to  {temp_in_c:.3f} C or {temp_in_k:.3f} K ')
+        temp1 = temp_in_c
+        temp1_b = "C"
+        temp2 = temp_in_k
+        temp2_b = "K"
+    elif temp_given_in == 'k' and temperature >= 0:
+        temp_in_c = temperature - 273.15
+        temp_in_f = (temperature - 273.15) * 9 / 5 + 32
+        print(
+            f'For given temperature in {temperature:.3f} K is equivelent to  {temp_in_c:.3f} C or {temp_in_f:.3f} F ')
+        temp1 = temp_in_c
+        temp1_b = "C"
+        temp2 = temp_in_f
+        temp2_b = "F"
+    else:
+        lis = ['c', 'f', 'k']
+        if temp_given_in not in lis:
+            print("Check input temperature base")
+            temp1 = temp1_b = temp2 = temp2_b = None
+        elif temp_given_in == 'c' and temperature < -273.15:
+            print("For Celius Temperature cannot be less than -273.15")
+            temp1 = temp1_b = temp2 = temp2_b = None
+        elif temp_given_in == 'f' and temperature > -459.67:
+            print("For fahrenheit Temperature cannot be less than -459.67")
+            temp1 = temp1_b = temp2 = temp2_b = None
         else:
-            distance_in_km = distance
-
-        if kwargs["time"] == "ms":
-            time_in_hr = 2.7778e-7
-        elif kwargs["time"] == "s":
-            time_in_hr = 0.00027778
-        elif kwargs["time"] == "day":
-            time_in_hr = 24
-        else:
-            time_in_hr = 1
-
-        speed = round(distance_in_km / time_in_hr, 3)
-        print(f"Speed : {speed}")
+            print("For Kelvin Temperature cannot be less than 0")
+            temp1 = temp1_b = temp2 = temp2_b = None
+    return temp1, temp1_b, temp2, temp2_b
 
 
-def time_it(fn, *args, repetitons=1, **kwargs):
+# 4. Speed Converter Function
+def speed_converter(speed, *, dist='km',time='min'):
+    table_dist = {"km": 1, 'm': 1000, "ft": 3280.84, "yrd": 1093.61, "mile": 0.621371}
+    time_dist = {"ms": 1 / (3.6 * 10 ** 6), "s": 1 / 3600, "min": 1 / 60, "hr": 1, "day": 24}
+    if speed >= 0 and dist in table_dist and time in time_dist:
+        d_value = table_dist.get(dist)
+        t_value = time_dist.get(time)
+        speed_converted = speed * d_value * t_value
+        print(f'Speed in {speed:.3e} in kmph is equal to {speed_converted:.3e} in {dist}/{time}')
+    elif dist not in table_dist and time not in time_dist:
+        speed_converted = None
+        print('Provide time(ms,s,min,hr,day) and distnace(km,m,mile,yrd or ft) in proper units  ')
+    elif dist not in table_dist:
+        speed_converted = None
+        print('Provide proper distance  units')
+    elif time not in time_dist:
+        speed_converted = None
+        print('Provide proper  time  units ')
+    else:
+        speed_converted = None
+        print('speed cannot be negative')
+    return speed_converted
+
+# The Main time_it function
+def time_it(fn, *args, repetitions=1, **kwargs):
+
+    # Starting the timer
     start = time.perf_counter()
+    if not callable(fn):
+        print('The given function is undefined')
 
-    if fn == None:
-        pass
-    if fn == "print":
-        _print(repetitons, *args, **kwargs)
+    elif repetitions > 0:
+        # Starting the loop
+        for i in range(repetitions):
+            fn(*args, **kwargs)
+    else:
+        print("Repetitions should be greter than 0")
+        repetitions = 1
 
-    if fn == "squared_power_list":
-        if len(args) < 1 or len(args) > 1:
-            print("Need at least 2 position argument, to define the base number")
-        else:
-            _squared_power_list(repetitons, args[0], **kwargs)
-
-    if fn == "polygon_area":
-        if len(args) < 1 or len(args) > 1:
-            print("Need at least 2 position argument, to define the side length of the polygon")
-        else:
-            _polygon_area(repetitons, args[0], **kwargs)
-
-    if fn == "temp_converter":
-        if len(args) < 1 or len(args) > 1:
-            print("Need at least 2 position argument, to define the base temperature")
-        else:
-            _temp_converter(repetitons, args[0], **kwargs)
-
-    if fn == "speed_converter":
-        if len(args) < 1 or len(args) > 1:
-            print("Need at least 2 position argument, to define distance travelled(in km/m/ft/yrd)")
-        else:
-            _speed_converter(repetitons, args[0], **kwargs)
-
+    # Ending the timer
     end = time.perf_counter()
-    return round(end - start, 4)
 
+    # Calculating the average run time per call for the function
+    avg_run_time = (end - start) / repetitions
 
+    return avg_run_time
