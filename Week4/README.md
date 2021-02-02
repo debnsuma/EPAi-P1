@@ -88,7 +88,7 @@ Other functions used in the code are the following which are being called by the
 - `test_print_function()` - This test function checks special print functions is in order.
 - `test_squared_power_list_function_output()` - This test function checks output of squared_power_list function.
 - `test_squared_power_list_function_input_negative_power()` - This test function checks  squared_power_list function for negative power input.
-- `test_squared_power_list_function_input_start_greater_than_end_(): - This test function checks  squared_power_list function for end value larger than start value.
+- `test_squared_power_list_function_input_start_greater_than_end_()`: - This test function checks  squared_power_list function for end value larger than start value.
 - `test_polygon_area_triangle()` - This test function checks  polygon_area function for area of triangle.
 - `test_polygon_area_function_square()` - This test function checks  polygon_area function for area of square.
 - `test_polygon_area_function_pentagon()` - This test function checks  polygon_area function for area of pentagon.
