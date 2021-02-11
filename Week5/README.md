@@ -146,7 +146,3 @@ def test_function_score_cal_check25():
 def test_function_score_cal_check26():
     assert score_calculator(p_high_card_3)[0]==1000, 'score Should be 1000'
 
-
-We are using python >3.8.3
-
-The assignment is  tested by executing 'pytest' , from python shell in same folder
